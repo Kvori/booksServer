@@ -11,11 +11,10 @@ class BookController {
         } = req.query
 
         let startedId = 1
-        let limits = 20
+        const limits = 10
 
         if (page && Number(page) !== 1) {
             startedId = 21 + (page - 2) * limits
-            limits = 10
         }
 
         const { books } = new BookListCreator({language, seed, likesCount, reviewsCount, limits, startedId})
