@@ -1,8 +1,9 @@
 import { fakerEN, fakerRU, fakerJA } from "@faker-js/faker"
 
 class BookCreator {
-    constructor({ id, faker,likesCount, reviewsCount }) {
+    constructor({ id, seed, faker,likesCount, reviewsCount }) {
         this.id = id
+        this.seed = seed
         this.faker = faker
         this.likesCount = likesCount
         this.reviewsCount = reviewsCount
@@ -12,10 +13,13 @@ class BookCreator {
         let reviews = []
 
         for (let i = 0; i < this.roundingNumberWithChance(Number(this.reviewsCount)); i++) {
+            this.faker.seed(this.seed + i + 123123)
+
             const rewiewAuthor = this.faker.person.fullName()
             const reviewText = this.faker.lorem.sentences({ min: 1, max: 3 })
             reviews.push({ author: rewiewAuthor, text: reviewText })
         }
+        this.faker.seed(this.seed)
         return reviews
     }
 

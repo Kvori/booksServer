@@ -28,8 +28,12 @@ class BookListCreator {
             }
         }
         const { faker, fakerId } = fakers[key]
-        faker.seed(this.seed + id + fakerId)
-        return faker
+        const seed = this.seed + id + fakerId
+        faker.seed(seed)
+        return {
+            faker,
+            seed
+        }
     }
 
     get books() {
@@ -37,8 +41,8 @@ class BookListCreator {
 
         for (let i = 0; i < this.limits; i++) {
             const id = this.startedId + i
-            const faker = this.createFakerWithLangueage(id)
-            const book = new BookCreator({ id: id, faker: faker, likesCount: this.likesCount, reviewsCount: this.reviewsCount })
+            const {faker, seed} = this.createFakerWithLangueage(id)
+            const book = new BookCreator({ id: id, seed: seed, faker: faker, likesCount: this.likesCount, reviewsCount: this.reviewsCount })
             books.push(book.book)
         }
 
