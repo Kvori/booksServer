@@ -11,9 +11,10 @@ class BookController {
         } = req.query
 
         let startedId = 1
-        const limits = 10
+        let limits = 20
 
         if (page && Number(page) !== 1) {
+            limits = 10
             startedId = 21 + (page - 2) * limits
         }
 
